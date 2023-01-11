@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "./Button";
+import { Game } from "./Game";
 import { GenerateNewText } from "./GenerateNewText";
 import { TextLengthInput } from "./TextLengtInput";
 import { TypingField } from "./TypingField";
@@ -20,14 +21,8 @@ export function TypingArea() {
         <Button text="Reset Run" />
         <Button
           text="Generate New Text"
-          onClick={() => {
-            GenerateNewText(textLength).then((response) => setText(response));
-          }}
+          onClick={() => GenerateNewText(textLength).then((response) => setText(response))}
         />
-      </div>
-      <div className="TypingArea__ButtonLine">
-        <Button text="Delete Todays Data" />
-        <Button text="Delete All Data" />
       </div>
     </div>
   );
