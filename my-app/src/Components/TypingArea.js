@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "./Button";
-import { Game } from "./Game";
 import { GenerateNewText } from "./GenerateNewText";
 import { TextLengthInput } from "./TextLengtInput";
 import { TypingField } from "./TypingField";
