@@ -1,4 +1,6 @@
 import React from "react";
+import { Button } from "./Button";
+import { TextLengthInput } from "./TextLengthInput";
 import { TypingField } from "./TypingField";
 
 export function TypingArea() {
@@ -6,7 +8,7 @@ export function TypingArea() {
     <div className="TypingArea">
       <h1 className="TypingArea__Header ">Typing 100</h1>
       <TextLengthInput />
-      <TypingField text={text} />
+      <TypingField />
       <div className="TypingArea__ButtonLine">
         <Button text="Reset Run" />
         <Button text="Generate New Text" />
