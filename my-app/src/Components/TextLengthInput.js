@@ -1,8 +1,9 @@
-export function TextLengthInput() {
+import React from "react";
+export function TextLengthInput(props) {
   return (
-    <div class="TypingArea__TextLength">
+    <div className="TypingArea__TextLength">
       Text Length
-      <input type="number" id="TextLength" onkeypress="handleKeyPress(event)" placeholder="Text-Length 1-100" />
+      <input type="number" min={1} max={100} placeholder="1-100" />
     </div>
   );
 }
