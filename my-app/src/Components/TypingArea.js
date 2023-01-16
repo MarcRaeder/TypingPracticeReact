@@ -1,5 +1,5 @@
 import { Button } from "./Button";
-import { TextLengthInput } from "./TextLengtInput";
+import { TextLengthInput } from "./TextLengthInput";
 import { TypingField } from "./TypingField";
 
 export function TypingArea() {
