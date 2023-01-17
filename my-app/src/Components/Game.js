@@ -2,38 +2,43 @@ import React, { useEffect, useRef, useState } from "react";
 
 export function Game(props) {
   const divRef = useRef(HTMLDivElement);
-  const [wrongChar, setWrongChar] = useState(false);
-  const current = props.text[0];
+  const currentChar = props.text[0];
 
   useEffect(() => {
     props.setText(props.text.slice(1));
     divRef.current.focus();
   }, []);
 
+  function setTimer() {
+    if (props.startTimerEnabled === true) {
+      props.setStartTime(new Date().getTime());
+      props.setStartTimerEnabled(false);
+    }
+  }
+
+  function keyPressedIsCorrect(statusValue) {
+    const copyTypedChars = props.typedChars.slice();
+    copyTypedChars.push({
+      char: currentChar,
+      status: statusValue,
+    });
+    props.setTypedChars(copyTypedChars);
+    props.setText(props.text.slice(1));
+    setTimer();
+  }
+
   const onKeyPressed = (event) => {
-    const correct = event.key === current && wrongChar === false;
-    const incorrect = event.key !== current;
-    const firstIncorrectThenIncorrect = current && wrongChar === true;
+    const correct = event.key === currentChar && props.wrongChar === false;
+    const incorrect = event.key !== currentChar;
+    const firstIncorrectThenIncorrect = event.key === currentChar && props.wrongChar === true;
 
     if (correct) {
-      const copyTypedChars = props.typedChars.slice();
-      copyTypedChars.push({
-        char: current,
-        status: "correct",
-      });
-      props.setTypedChars(copyTypedChars);
-      props.setText(props.text.slice(1));
+      keyPressedIsCorrect("correct");
     } else if (incorrect) {
-      setWrongChar(true);
+      props.setWrongChar(true);
     } else if (firstIncorrectThenIncorrect) {
-      const copyTypedChars = props.typedChars.slice();
-      copyTypedChars.push({
-        char: current,
-        status: "incorrect",
-      });
-      props.setTypedChars(copyTypedChars);
-      props.setText(props.text.slice(1));
-      setWrongChar(false);
+      keyPressedIsCorrect("incorrect");
+      props.setWrongChar(false);
     }
   };
 
@@ -47,7 +52,7 @@ export function Game(props) {
             </span>
           ))}
         </>
-        <span className="TypingArea__Text--current">{current}</span>
+        <span className="TypingArea__Text--current">{currentChar}</span>
         {props.text.slice(1)}
       </div>
     </div>

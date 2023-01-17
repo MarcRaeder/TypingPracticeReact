@@ -2,12 +2,12 @@ import React from "react";
 import { Button } from "./Button";
 import { Stats } from "./Stats";
 
-export function StatsArea() {
+export function StatsArea(props) {
   return (
     <div className="StatsArea">
       <h1 className="StatsArea__Header">Stats</h1>
       <div className="StatsArea__Title">Last Set</div>
-      <Stats text="Time:" />
+      <Stats text={"Time: " + Math.round(props.lastSetTime) + "sec"} />
       <Stats text="CPM:" />
       <Stats text="Wrong Chars:" />
       <div className="StatsArea__Title">Today</div>

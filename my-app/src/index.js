@@ -1,17 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { TypingArea } from "./Components/TypingArea";
 import { StatsArea } from "./Components/StatsArea";
 
-function TypingPractice() {
+export function TypingPractice() {
+  const [lastSetTime, setLastSetTime] = useState("");
+
   return (
     <>
-      <TypingArea />
-      <StatsArea />
+      <TypingArea setLastSetTime={setLastSetTime} />
+      <StatsArea lastSetTime={lastSetTime} />
     </>
   );
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(TypingPractice());
+root.render(<TypingPractice />);
