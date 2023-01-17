@@ -14,4 +14,4 @@ function TypingPractice() {
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(TypingPractice());
+root.render(<TypingPractice />);
