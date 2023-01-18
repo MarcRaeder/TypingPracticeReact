@@ -37,6 +37,8 @@ export function TypingArea(props) {
       setStartTimerEnabled(true);
       setIsWrongCharTyped(false);
       props.setEndTime(new Date().getTime());
+      props.setSets((sets) => sets + 1);
+      props.setCharsTyped((charsTyped) => charsTyped + typedChars.length);
     });
   }
 

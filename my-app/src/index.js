@@ -9,8 +9,10 @@ export function TypingPractice() {
   const [endTime, setEndTime] = useState(0);
   const [clicks, setClicks] = useState(0);
   const [wrongChars, setWrongChars] = useState(0);
+  const [sets, setSets] = useState(0);
+  const [charsTyped, setCharsTyped] = useState(0);
 
-  console.log({ wrongChars });
+  console.log({ charsTyped, wrongChars });
   return (
     <>
       <TypingArea
@@ -18,6 +20,8 @@ export function TypingPractice() {
         setEndTime={setEndTime}
         setClicks={setClicks}
         setWrongChars={setWrongChars}
+        setSets={setSets}
+        setCharsTyped={setCharsTyped}
       />
       <StatsArea
         startTime={startTime}
@@ -26,6 +30,10 @@ export function TypingPractice() {
         setClicks={setClicks}
         wrongChars={wrongChars}
         setWrongChars={setWrongChars}
+        sets={sets}
+        setSets={setSets}
+        charsTyped={charsTyped}
+        setCharsTyped={setCharsTyped}
       />
     </>
   );
