@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 
 export function Game(props) {
   const divRef = useRef(HTMLDivElement);
@@ -25,20 +25,22 @@ export function Game(props) {
     props.setTypedChars(copyTypedChars);
     props.setText(props.text.slice(1));
     setTimer();
+    props.setClicks((clicks) => clicks + 1);
   }
 
   const onKeyPressed = (event) => {
-    const correct = event.key === currentChar && props.wrongChar === false;
+    const correct = event.key === currentChar && props.isWrongCharTyped === false;
     const incorrect = event.key !== currentChar;
-    const firstIncorrectThenIncorrect = event.key === currentChar && props.wrongChar === true;
+    const firstIncorrectThenIncorrect = event.key === currentChar && props.isWrongCharTyped === true;
 
     if (correct) {
       keyPressedIsCorrect("correct");
     } else if (incorrect) {
-      props.setWrongChar(true);
+      props.setIsWrongCharTyped(true);
     } else if (firstIncorrectThenIncorrect) {
       keyPressedIsCorrect("incorrect");
-      props.setWrongChar(false);
+      props.setIsWrongCharTyped(false);
+      props.setWrongChars((wrongChars) => wrongChars + 1);
     }
   };
 

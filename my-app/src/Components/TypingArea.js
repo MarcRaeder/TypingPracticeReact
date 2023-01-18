@@ -9,9 +9,8 @@ export function TypingArea(props) {
   const [textLength, setTextLength] = useState(1);
   const [typedChars, setTypedChars] = useState([]);
   const [backupText, setBackupText] = useState("");
-  const [startTime, setStartTime] = useState(0);
   const [startTimerEnabled, setStartTimerEnabled] = useState(true);
-  const [wrongChar, setWrongChar] = useState(false);
+  const [isWrongCharTyped, setIsWrongCharTyped] = useState(false);
 
   function newRun() {
     GenerateNewText(textLength).then((response) => {
@@ -19,14 +18,14 @@ export function TypingArea(props) {
       setBackupText(response);
       setTypedChars([]);
       setStartTimerEnabled(true);
-      setWrongChar(false);
+      isWrongCharTyped(false);
     });
   }
 
   function resetRun() {
     setText(backupText);
     setTypedChars([]);
-    setWrongChar(false);
+    isWrongCharTyped(false);
     setStartTimerEnabled(true);
   }
 
@@ -36,9 +35,8 @@ export function TypingArea(props) {
       setBackupText(response);
       setTypedChars([]);
       setStartTimerEnabled(true);
-      setWrongChar(false);
-
-      props.setLastSetTime((new Date().getTime() - startTime) / 1000);
+      setIsWrongCharTyped(false);
+      props.setEndTime(new Date().getTime());
     });
   }
 
@@ -62,12 +60,14 @@ export function TypingArea(props) {
         setText={setText}
         typedChars={typedChars}
         setTypedChars={setTypedChars}
-        setLastSetTime={props.setLastSetTime}
-        setStartTime={setStartTime}
-        setStartTimerEnabled={setStartTimerEnabled}
+        isWrongCharTyped={isWrongCharTyped}
+        setIsWrongCharTyped={setIsWrongCharTyped}
         startTimerEnabled={startTimerEnabled}
-        wrongChar={wrongChar}
-        setWrongChar={setWrongChar}
+        setStartTimerEnabled={setStartTimerEnabled}
+        setStartTime={props.setStartTime}
+        setEndTime={props.setEndTime}
+        setClicks={props.setClicks}
+        setWrongChars={props.setWrongChars}
       />
       <div className="TypingArea__ButtonLine">
         <Button text="Reset Run" onClick={() => resetRun()} />
