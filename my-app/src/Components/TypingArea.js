@@ -25,7 +25,7 @@ export function TypingArea(props) {
   function resetRun() {
     setText(backupText);
     setTypedChars([]);
-    isWrongCharTyped(false);
+    setIsWrongCharTyped(false);
     setStartTimerEnabled(true);
   }
 

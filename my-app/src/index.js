@@ -12,7 +12,7 @@ export function TypingPractice() {
   const [sets, setSets] = useState(0);
   const [charsTyped, setCharsTyped] = useState(0);
 
-  console.log({ charsTyped, wrongChars });
+  console.log({ startTime, endTime });
   return (
     <>
       <TypingArea
