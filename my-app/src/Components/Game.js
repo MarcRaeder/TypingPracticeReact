@@ -16,7 +16,7 @@ export function Game(props) {
     }
   }
 
-  function keyPressedIsCorrect(statusValue) {
+  function keyPressedIsCorrect(statusValue, event) {
     const copyTypedChars = props.typedChars.slice();
     copyTypedChars.push({
       char: currentChar,
@@ -26,6 +26,10 @@ export function Game(props) {
     props.setText(props.text.slice(1));
     setTimer();
     props.setClicks((clicks) => clicks + 1);
+    props.setLetters((letters) => {
+      letters[`${event.key}`].frequencie = letters[`${event.key}`].frequencie + 1;
+      return letters;
+    });
   }
 
   const onKeyPressed = (event) => {
@@ -34,11 +38,15 @@ export function Game(props) {
     const firstIncorrectThenIncorrect = event.key === currentChar && props.isWrongCharTyped === true;
 
     if (correct) {
-      keyPressedIsCorrect("correct");
+      keyPressedIsCorrect("correct", event);
+      props.setLetters((letters) => {
+        letters[`${event.key}`].correct = letters[`${event.key}`].correct + 1;
+        return letters;
+      });
     } else if (incorrect) {
       props.setIsWrongCharTyped(true);
     } else if (firstIncorrectThenIncorrect) {
-      keyPressedIsCorrect("incorrect");
+      keyPressedIsCorrect("incorrect", event);
       props.setIsWrongCharTyped(false);
       props.setWrongChars((wrongChars) => wrongChars + 1);
     }

@@ -42,10 +42,6 @@ body,
   color: red;
 }
 
-.test {
-  color: purple;
-}
-
 .TypingArea__Text {
   margin: auto;
   margin-top: 2%;
@@ -95,7 +91,7 @@ body,
 .StatsArea__ButtonLine {
   display: flex;
   flex-direction: row;
-  margin-top: 30%;
+  margin-top: 10%;
   justify-content: center;
 }
 
@@ -121,22 +117,12 @@ body,
   text-align: left;
 }
 
-.StatsArea__DataButton {
-  margin-top: 30%;
-}
-
 .StatsArea__MoreDetails {
-  border: 1px solid black;
-  background-color: grey;
-  color: white;
-  text-align: left;
-  position: absolute;
-  width: 50%;
-  height: 60%;
-  left: 25%;
-  top: 25%;
-  display: none;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  white-space: pre-line;
+  background-color: greenyellow;
+  word-spacing: 10cm;
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  max-height: 250px;
 }

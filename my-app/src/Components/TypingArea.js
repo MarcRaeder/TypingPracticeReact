@@ -18,7 +18,7 @@ export function TypingArea(props) {
       setBackupText(response);
       setTypedChars([]);
       setStartTimerEnabled(true);
-      isWrongCharTyped(false);
+      setIsWrongCharTyped(false);
     });
   }
 
@@ -70,6 +70,7 @@ export function TypingArea(props) {
         setEndTime={props.setEndTime}
         setClicks={props.setClicks}
         setWrongChars={props.setWrongChars}
+        setLetters={props.setLetters}
       />
       <div className="TypingArea__ButtonLine">
         <Button text="Reset Run" onClick={() => resetRun()} />

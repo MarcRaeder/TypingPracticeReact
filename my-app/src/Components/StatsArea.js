@@ -23,6 +23,8 @@ export function StatsArea(props) {
   const [totalWrongChars, setTotalWrongChars] = useState(parseInt(localStorage.getItem("totalWrongChars") ?? 0));
   const [totalCharsTyped, setTotalCharsTyped] = useState(parseInt(localStorage.getItem("totalCharsTyped") ?? 0));
 
+  const [showMoreDetails, setShowMoreDetails] = useState(false);
+
   const [day, setDay] = useState(parseInt(localStorage.getItem("day") ?? 0));
   const [month, setMonth] = useState(parseInt(localStorage.getItem("month") ?? 0));
   const [year, setYear] = useState(parseInt(localStorage.getItem("year") ?? 0));
@@ -63,6 +65,7 @@ export function StatsArea(props) {
     localStorage.setItem("totalClicks", totalClicks);
     localStorage.setItem("totalTime", totalTime);
     localStorage.setItem("totalWrongChars", totalWrongChars);
+    localStorage.setItem("letters", JSON.stringify(props.letters));
   }, [totalTime]);
   useEffect(() => {
     props.setSets(0);
@@ -89,6 +92,13 @@ export function StatsArea(props) {
     setTotalCharsTyped(0);
     setTotalTime(0);
     setTotalWrongChars(0);
+    props.setLetters((letters) => {
+      Object.keys(letters).forEach((element) => {
+        letters[element].frequencie = 0;
+        letters[element].correct = 0;
+      });
+      return letters;
+    });
   }
 
   function setDate() {
@@ -127,8 +137,19 @@ export function StatsArea(props) {
       <Stats text={"CPM:" + totalClicksPerMinute} />
       <Stats text={"Time:" + Math.round(totalTime / 1000)} />
       <Stats text={"Mistake Ratio:" + totalMistakeRatio} />
+      {showMoreDetails ? (
+        <div className="StatsArea__MoreDetails">
+          {Object.keys(props.letters).map((char, i) => (
+            <div key={i}>
+              {`${char}:` +
+                (props.letters[char].correct / (props.letters[char].frequencie ? props.letters[char].frequencie : 1)) *
+                  100}
+            </div>
+          ))}
+        </div>
+      ) : null}
       <div className="StatsArea__ButtonLine">
-        <Button text="More Details" />
+        <Button text="More Details" onClick={() => setShowMoreDetails((value) => !value)} />
         <Button text="Delete Todays Data" onClick={() => deleteTodayStats()} />
         <Button text="Delete All Data" onClick={() => deleteAllStats()} />
       </div>
