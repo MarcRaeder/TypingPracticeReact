@@ -6,7 +6,7 @@ import { TextLengthInput } from "./TextLengthInput";
 
 export function TypingArea(props) {
   const [text, setText] = useState("");
-  const [textLength, setTextLength] = useState(1);
+  const [textLength, setTextLength] = useState(5);
   const [typedChars, setTypedChars] = useState([]);
   const [backupText, setBackupText] = useState("");
   const [startTimerEnabled, setStartTimerEnabled] = useState(true);
@@ -77,7 +77,9 @@ export function TypingArea(props) {
         <Button
           text="Generate New Text"
           onClick={() => {
-            newRun();
+            if (textLength >= 1 && textLength <= 100) {
+              newRun();
+            }
           }}
         />
       </div>

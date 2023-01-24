@@ -3,11 +3,7 @@ import React, { useEffect, useRef } from "react";
 export function Game(props) {
   const divRef = useRef(HTMLDivElement);
   const currentChar = props.text[0];
-
-  useEffect(() => {
-    props.setText(props.text.slice(1));
-    divRef.current.focus();
-  }, []);
+  const whiteSpace = " ";
 
   function setTimer() {
     if (props.startTimerEnabled === true) {
@@ -26,10 +22,12 @@ export function Game(props) {
     props.setText(props.text.slice(1));
     setTimer();
     props.setClicks((clicks) => clicks + 1);
-    props.setLetters((letters) => {
-      letters[`${event.key}`].frequencie = letters[`${event.key}`].frequencie + 1;
-      return letters;
-    });
+    if (event.key !== whiteSpace) {
+      props.setLetters((letters) => {
+        letters[`${event.key}`].frequencie = letters[`${event.key}`].frequencie + 1;
+        return letters;
+      });
+    }
   }
 
   const onKeyPressed = (event) => {
@@ -39,10 +37,12 @@ export function Game(props) {
 
     if (correct) {
       keyPressedIsCorrect("correct", event);
-      props.setLetters((letters) => {
-        letters[`${event.key}`].correct = letters[`${event.key}`].correct + 1;
-        return letters;
-      });
+      if (event.key !== whiteSpace) {
+        props.setLetters((letters) => {
+          letters[`${event.key}`].correct = letters[`${event.key}`].correct + 1;
+          return letters;
+        });
+      }
     } else if (incorrect) {
       props.setIsWrongCharTyped(true);
     } else if (firstIncorrectThenIncorrect) {
@@ -51,6 +51,15 @@ export function Game(props) {
       props.setWrongChars((wrongChars) => wrongChars + 1);
     }
   };
+
+  useEffect(() => {
+    props.setText(props.text.slice(1));
+    divRef.current.focus();
+  }, []);
+
+  useEffect(() => {
+    divRef.current.focus();
+  }, [props.typedChars]);
 
   return (
     <div className="TypingArea__Text">

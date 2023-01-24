@@ -36,12 +36,6 @@ body,
   margin-top: 5%;
 }
 
-.TypingArea__input_error {
-  margin-left: 44%;
-  margin-top: 5%;
-  color: red;
-}
-
 .TypingArea__Text {
   margin: auto;
   margin-top: 2%;
@@ -66,19 +60,6 @@ body,
 .TypingArea__Text--current {
   text-decoration: underline;
   background-color: rgb(251, 247, 1);
-}
-
-.TypingArea__Text--rest {
-  color: black;
-}
-
-.Fehlermeldung {
-  background-color: red;
-  text-align: center;
-  vertical-align: middle;
-  justify-content: center;
-  height: 100%;
-  font-size: 50px;
 }
 
 .TypingArea__ButtonLine {
