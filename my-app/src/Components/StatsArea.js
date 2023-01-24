@@ -35,8 +35,6 @@ export function StatsArea(props) {
   const currentYear = new Date().getFullYear();
   const checkDateIsCurrent = currentDay === day && currentMonth === month && currentYear === year;
 
-  console.log({ currentDay, day, currentMonth, month, currentYear, year });
-
   function deleteTodayStats() {
     setTodaySets(0);
     setTodayCharsTyped(0);
@@ -123,16 +121,10 @@ export function StatsArea(props) {
   }, [lastSetClicksPerMinute]);
   useEffect(() => {
     if (!checkDateIsCurrent) {
-      console.log("hello");
       deleteTodayStats();
       setAndSaveDate();
     }
   }, []);
-
-  // if (day === 0) {
-  //   console.log("hello2");
-  //   setAndSaveDate();
-  // }
 
   return (
     <div className="StatsArea">
