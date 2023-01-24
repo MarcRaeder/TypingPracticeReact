@@ -10,16 +10,4 @@ export async function GenerateNewText(textLength) {
   let text = words.join(" ");
 
   return text;
-
-  //   rest.textContent = text;
-  // current = document.createElement("SPAN");
-  // current.className = "TypingArea__Text--current";
-  // current.textContent = rest.textContent[0];
-  // rest.textContent = rest.textContent.slice(1);
-  // textarea = document.getElementsByClassName("TypingArea__Text");
-  // textarea[0].insertBefore(current, rest);
-  // document.querySelector(".TypingArea__input_error").innerHTML = "";
-  // incorrectKey = 0;
-  // document.getElementById("TextLength").blur();
-  // document.getElementById("btn").blur();
 }
