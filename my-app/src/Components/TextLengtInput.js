@@ -2,7 +2,7 @@ import React from "react";
 
 export function TextLengthInput(props) {
   return (
-    <div className="TypingArea__TextLength">
+    <div className="typing-area__textLength">
       Text Length
       <input
         type="number"

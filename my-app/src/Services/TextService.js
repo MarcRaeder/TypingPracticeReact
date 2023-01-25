@@ -4,7 +4,6 @@ export class TextService {
   }
 
   async GenerateNewText(textLength) {
-    console.log(this.textRepository);
     return await this.textRepository.GenerateNewText(textLength);
   }
 }

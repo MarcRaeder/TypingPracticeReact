@@ -10,16 +10,15 @@ export function TypingArea() {
   const [textLength, setTextLength] = useState(5);
   const [textService, setTextService] = useState(new TextService(new TextRepository()));
   useEffect(() => {
-    console.log(textService);
     textService.GenerateNewText(textLength).then((response) => setText(response));
   }, []);
 
   return (
-    <div className="TypingArea">
-      <h1 className="TypingArea__Header ">Typing 100</h1>
+    <div className="typing-area">
+      <h1 className="typing-area__header ">Typing 100</h1>
       <TextLengthInput setTextLength={setTextLength} />
       <TypingField text={text} />
-      <div className="TypingArea__ButtonLine">
+      <div className="typing-area__buttonLine">
         <Button text="Reset Run" />
         <Button
           text="Generate New Text"
@@ -28,7 +27,7 @@ export function TypingArea() {
           }}
         />
       </div>
-      <div className="TypingArea__ButtonLine">
+      <div className="typing-area__buttonLine">
         <Button text="Delete Todays Data" />
         <Button text="Delete All Data" />
       </div>
