@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "./Button";
-import { GenerateNewText } from "./GenerateNewText";
+import { TextService } from "../Service/TextService";
 import { TextLengthInput } from "./TextLengtInput";
 import { TypingField } from "./TypingField";
+import { TextRepository } from "../Repository/TextRepository";
 
 export function TypingArea() {
   const [text, setText] = useState("");
   const [textLength, setTextLength] = useState(5);
+  const [textService, setTextService] = useState(new TextService(new TextRepository()));
   useEffect(() => {
-    GenerateNewText(textLength).then((response) => setText(response));
+    console.log(textService);
+    textService.GenerateNewText(textLength).then((response) => setText(response));
   }, []);
 
   return (
@@ -21,7 +24,7 @@ export function TypingArea() {
         <Button
           text="Generate New Text"
           onClick={() => {
-            GenerateNewText(textLength).then((response) => setText(response));
+            textService.GenerateNewText(textLength).then((response) => setText(response));
           }}
         />
       </div>
