@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "./Button";
-import { TextService } from "../Service/TextService";
+import { TextService } from "../Services/TextService";
 import { TextLengthInput } from "./TextLengtInput";
 import { TypingField } from "./TypingField";
-import { TextRepository } from "../Repository/TextRepository";
+import { TextRepository } from "../Repositories/TextRepository";
 
 export function TypingArea() {
   const [text, setText] = useState("");
