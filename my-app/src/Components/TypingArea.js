@@ -18,7 +18,7 @@ export function TypingArea() {
       <h1 className="typing-area__header ">Typing 100</h1>
       <TextLengthInput setTextLength={setTextLength} />
       <TypingField text={text} />
-      <div className="typing-area__buttonLine">
+      <div className="typing-area__button-line">
         <Button text="Reset Run" />
         <Button
           text="Generate New Text"
@@ -27,7 +27,7 @@ export function TypingArea() {
           }}
         />
       </div>
-      <div className="typing-area__buttonLine">
+      <div className="typing-area__button-line">
         <Button text="Delete Todays Data" />
         <Button text="Delete All Data" />
       </div>

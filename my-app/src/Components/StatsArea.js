@@ -21,7 +21,7 @@ export function StatsArea() {
       <Stats text="CPM:" />
       <Stats text="Time:" />
       <Stats text="Mistake Ratio:" />
-      <div className="stats-area__buttonLine">
+      <div className="stats-area__button-line">
         <Button text="More Details" />
       </div>
     </div>
