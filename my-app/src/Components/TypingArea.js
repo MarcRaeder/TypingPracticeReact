@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "./Button";
 import { Game } from "./Game";
-import { GenerateNewText } from "./GenerateNewText";
+import { TextService } from "../Services/TextService";
+import { TextRepository } from "../Repositories/TextRepository";
 import { TextLengthInput } from "./TextLengthInput";
 
 export function TypingArea(props) {
   const [text, setText] = useState("");
   const [textLength, setTextLength] = useState(5);
+  const [textService, setTextService] = useState(new TextService(new TextRepository()));
   const [typedChars, setTypedChars] = useState([]);
   const [backupText, setBackupText] = useState("");
   const [startTimerEnabled, setStartTimerEnabled] = useState(true);
   const [isWrongCharTyped, setIsWrongCharTyped] = useState(false);
 
   function newRun() {
-    GenerateNewText(textLength).then((response) => {
+    textService.GenerateNewText(textLength).then((response) => {
       setText(response);
       setBackupText(response);
       setTypedChars([]);
@@ -30,7 +32,7 @@ export function TypingArea(props) {
   }
 
   function textFinished() {
-    GenerateNewText(textLength).then((response) => {
+    textService.GenerateNewText(textLength).then((response) => {
       setText(response);
       setBackupText(response);
       setTypedChars([]);
@@ -43,7 +45,7 @@ export function TypingArea(props) {
   }
 
   useEffect(() => {
-    GenerateNewText(textLength).then((response) => {
+    textService.GenerateNewText(textLength).then((response) => {
       setText(response);
       setBackupText(response);
     });
@@ -54,8 +56,8 @@ export function TypingArea(props) {
   }
 
   return (
-    <div className="TypingArea">
-      <h1 className="TypingArea__Header ">Typing 100</h1>
+    <div className="typing-area">
+      <h1 className="typing-area__header ">Typing 100</h1>
       <TextLengthInput setTextLength={setTextLength} />
       <Game
         text={text}
@@ -72,7 +74,7 @@ export function TypingArea(props) {
         setWrongChars={props.setWrongChars}
         setLetters={props.setLetters}
       />
-      <div className="TypingArea__ButtonLine">
+      <div className="typing-area__button-line">
         <Button text="Reset Run" onClick={() => resetRun()} />
         <Button
           text="Generate New Text"

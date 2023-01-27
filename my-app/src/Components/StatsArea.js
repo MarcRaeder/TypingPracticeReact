@@ -127,25 +127,25 @@ export function StatsArea(props) {
   }, []);
 
   return (
-    <div className="StatsArea">
-      <h1 className="StatsArea__Header">Stats</h1>
-      <div className="StatsArea__Title">Last Set</div>
+    <div className="stats-area">
+      <h1 className="stats-area__header">Stats</h1>
+      <div className="stats-area__title">Last Set</div>
       <Stats text={"Time: " + Math.round(lastSetTime / 1000)} />
       <Stats text={"CPM:" + lastSetClicksPerMinute} />
       <Stats text={"Wrong Chars:" + lastSetWrongChars} />
-      <div className="StatsArea__Title">Today</div>
+      <div className="stats-area__title">Today</div>
       <Stats text={"Sets:" + todaySets} />
       <Stats text={"Chars Typed:" + todayCharsTyped} />
       <Stats text={"CPM:" + todayClicksPerMinute} />
       <Stats text={"Time:" + Math.round(todayTime / 1000)} />
       <Stats text={"Mistake Ratio:" + todayMistakeRatio} />
-      <div className="StatsArea__Title">Total</div>
+      <div className="stats-area__title">Total</div>
       <Stats text={"Sets:" + totalSets} />
       <Stats text={"CPM:" + totalClicksPerMinute} />
       <Stats text={"Time:" + Math.round(totalTime / 1000)} />
       <Stats text={"Mistake Ratio:" + totalMistakeRatio} />
       {showMoreDetails ? (
-        <div className="StatsArea__MoreDetails">
+        <div className="stats-area__more-details">
           {Object.keys(props.letters).map((char, i) => (
             <div key={i}>
               {`${char}:` +
@@ -155,7 +155,7 @@ export function StatsArea(props) {
           ))}
         </div>
       ) : null}
-      <div className="StatsArea__ButtonLine">
+      <div className="stats-area__button-line">
         <Button text="More Details" onClick={() => setShowMoreDetails((value) => !value)} />
         <Button text="Delete Todays Data" onClick={() => deleteTodayStats()} />
         <Button text="Delete All Data" onClick={() => deleteAllStats()} />

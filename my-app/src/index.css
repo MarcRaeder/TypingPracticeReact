@@ -13,30 +13,30 @@ body,
   display: flex;
 }
 
-.TypingArea {
+.typing-area {
   flex: 2;
   background-color: blueviolet;
 }
 
-.StatsArea {
+.stats-area {
   flex: 1;
   background-color: green;
 }
 
-.TypingArea__Header {
+.typing-area__header {
   margin-top: 2%;
   font-size: 40px;
   text-align: center;
   text-decoration: underline;
 }
 
-.TypingArea__TextLength {
+.typing-area__text-length {
   position: relative;
   margin-left: 44%;
   margin-top: 5%;
 }
 
-.TypingArea__Text {
+.typing-area__text {
   margin: auto;
   margin-top: 2%;
   margin-left: 2%;
@@ -49,41 +49,41 @@ body,
   font-size: 20px;
 }
 
-.TypingArea__Text--correct {
+.typing-area__text--correct {
   color: green;
 }
 
-.TypingArea__Text--incorrect {
+.typing-area__text--incorrect {
   color: red;
 }
 
-.TypingArea__Text--current {
+.typing-area__text--current {
   text-decoration: underline;
   background-color: rgb(251, 247, 1);
 }
 
-.TypingArea__ButtonLine {
+.typing-area__button-line {
   display: flex;
   flex-direction: row;
   margin-top: 2%;
   justify-content: center;
 }
 
-.StatsArea__ButtonLine {
+.stats-area__button-line {
   display: flex;
   flex-direction: row;
   margin-top: 10%;
   justify-content: center;
 }
 
-.StatsArea__Header {
+.stats-area__header {
   margin-top: 2%;
   font-size: 40px;
   text-align: center;
   text-decoration: underline;
 }
 
-.StatsArea__Title {
+.stats-area__title {
   text-decoration: underline;
   margin-bottom: 20px;
   margin-left: 20px;
@@ -92,13 +92,13 @@ body,
   text-align: left;
 }
 
-.StatsArea__Stats {
+.stats-area__stats {
   margin-bottom: 5px;
   margin-left: 20px;
   text-align: left;
 }
 
-.StatsArea__MoreDetails {
+.stats-area__more-details {
   background-color: greenyellow;
   word-spacing: 10cm;
   margin-top: 30px;
@@ -106,4 +106,8 @@ body,
   flex-wrap: wrap;
   flex-direction: column;
   max-height: 250px;
+}
+
+.stats-area__data-button {
+  margin-top: 30%;
 }
