@@ -21,6 +21,7 @@ export function Game(props) {
         char: current,
         status: "correct",
       });
+
       props.setTypedChars(copyTypedChars);
       props.setText(props.text.slice(1));
     } else if (incorrect) {
@@ -31,6 +32,7 @@ export function Game(props) {
         char: current,
         status: "incorrect",
       });
+
       props.setTypedChars(copyTypedChars);
       props.setText(props.text.slice(1));
       setWrongChar(false);
@@ -41,8 +43,8 @@ export function Game(props) {
     <div className="typing-area__text">
       <div ref={divRef} onKeyDown={onKeyPressed} tabIndex="0">
         <>
-          {props.typedChars.map((element, i) => (
-            <span key={i} className={`typing-area__text--${element.status === "correct" ? "" : "in"}correct`}>
+          {props.typedChars.map((element, index) => (
+            <span key={index} className={`typing-area__text--${element.status === "correct" ? "" : "in"}correct`}>
               {element.char}
             </span>
           ))}
