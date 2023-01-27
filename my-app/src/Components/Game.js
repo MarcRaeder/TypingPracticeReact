@@ -38,16 +38,16 @@ export function Game(props) {
   };
 
   return (
-    <div className="TypingArea__Text">
+    <div className="typing-area__text">
       <div ref={divRef} onKeyDown={onKeyPressed} tabIndex="0">
         <>
           {props.typedChars.map((element, i) => (
-            <span key={i} className={`TypingArea__Text--${element.status === "correct" ? "" : "in"}correct`}>
+            <span key={i} className={`typing-area__text--${element.status === "correct" ? "" : "in"}correct`}>
               {element.char}
             </span>
           ))}
         </>
-        <span className="TypingArea__Text--current">{current}</span>
+        <span className="typing-area__text--current">{current}</span>
         {props.text.slice(1)}
       </div>
     </div>
