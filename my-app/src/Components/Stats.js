@@ -1,3 +1,5 @@
+import React from "react";
+
 export function Stats(props) {
-  return <div class="StatsArea__Stats">{props.text}</div>;
+  return <div className="stats-area__stats">{props.text}</div>;
 }
