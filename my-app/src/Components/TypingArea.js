@@ -11,6 +11,7 @@ export function TypingArea() {
   const [textService, setTextService] = useState(new TextService(new TextRepository()));
   const [typedChars, setTypedChars] = useState([]);
   const [backupText, setBackupText] = useState("");
+
   useEffect(() => {
     textService.GenerateNewText(textLength).then((response) => {
       setText(response);
@@ -43,12 +44,7 @@ export function TypingArea() {
             setTypedChars([]);
           }}
         />
-        <Button
-          text="Generate New Text"
-          onClick={() => {
-            newRun();
-          }}
-        />
+        <Button text="Generate New Text" onClick={() => newRun()} />
       </div>
     </div>
   );
