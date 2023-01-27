@@ -23,6 +23,8 @@ export function StatsArea() {
       <Stats text="Mistake Ratio:" />
       <div className="stats-area__button-line">
         <Button text="More Details" />
+        <Button text="Delete Todays Data" />
+        <Button text="Delete All Data" />
       </div>
     </div>
   );
