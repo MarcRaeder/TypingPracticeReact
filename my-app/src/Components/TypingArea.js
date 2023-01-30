@@ -5,12 +5,44 @@ import { TextService } from "../Services/TextService";
 import { TextRepository } from "../Repositories/TextRepository";
 import { TextLengthInput } from "./TextLengthInput";
 
-export function TypingArea() {
+export function TypingArea(props) {
   const [text, setText] = useState("");
   const [textLength, setTextLength] = useState(5);
   const [textService, setTextService] = useState(new TextService(new TextRepository()));
   const [typedChars, setTypedChars] = useState([]);
   const [backupText, setBackupText] = useState("");
+  const [startTimerEnabled, setStartTimerEnabled] = useState(true);
+  const [isWrongCharTyped, setIsWrongCharTyped] = useState(false);
+
+  function newRun() {
+    textService.GenerateNewText(textLength).then((response) => {
+      setText(response);
+      setBackupText(response);
+      setTypedChars([]);
+      setStartTimerEnabled(true);
+      setIsWrongCharTyped(false);
+    });
+  }
+
+  function resetRun() {
+    setText(backupText);
+    setTypedChars([]);
+    setIsWrongCharTyped(false);
+    setStartTimerEnabled(true);
+  }
+
+  function textFinished() {
+    textService.GenerateNewText(textLength).then((response) => {
+      setText(response);
+      setBackupText(response);
+      setTypedChars([]);
+      setStartTimerEnabled(true);
+      setIsWrongCharTyped(false);
+      props.setEndTime(new Date().getTime());
+      props.setSets((sets) => sets + 1);
+      props.setCharsTyped((charsTyped) => charsTyped + typedChars.length);
+    });
+  }
 
   useEffect(() => {
     textService.GenerateNewText(textLength).then((response) => {
@@ -19,32 +51,39 @@ export function TypingArea() {
     });
   }, []);
 
-  function newRun() {
-    textService.GenerateNewText(textLength).then((response) => {
-      setText(response);
-      setBackupText(response);
-      setTypedChars([]);
-    });
-  }
-
   if (text.length === 0 && typedChars.length !== 0) {
-    newRun();
+    textFinished();
   }
 
   return (
     <div className="typing-area">
       <h1 className="typing-area__header ">Typing 100</h1>
       <TextLengthInput setTextLength={setTextLength} />
-      <Game text={text} setText={setText} typedChars={typedChars} setTypedChars={setTypedChars} />
+      <Game
+        text={text}
+        setText={setText}
+        typedChars={typedChars}
+        setTypedChars={setTypedChars}
+        isWrongCharTyped={isWrongCharTyped}
+        setIsWrongCharTyped={setIsWrongCharTyped}
+        startTimerEnabled={startTimerEnabled}
+        setStartTimerEnabled={setStartTimerEnabled}
+        setStartTime={props.setStartTime}
+        setEndTime={props.setEndTime}
+        setClicks={props.setClicks}
+        setWrongChars={props.setWrongChars}
+        setLetters={props.setLetters}
+      />
       <div className="typing-area__button-line">
+        <Button text="Reset Run" onClick={() => resetRun()} />
         <Button
-          text="Reset Run"
+          text="Generate New Text"
           onClick={() => {
-            setText(backupText);
-            setTypedChars([]);
+            if (textLength >= 1 && textLength <= 100) {
+              newRun();
+            }
           }}
         />
-        <Button text="Generate New Text" onClick={() => newRun()} />
       </div>
     </div>
   );
