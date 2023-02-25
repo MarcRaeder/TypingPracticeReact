@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "./Button";
 import { Stats } from "./Stats";
+import { LocalStorageHandler } from "../Utils/LocalStorageHandler";
 
 export function StatsArea(props) {
   const [lastSetTime, setLastSetTime] = useState(0);
@@ -27,13 +28,14 @@ export function StatsArea(props) {
 
   const [showMoreDetails, setShowMoreDetails] = useState(false);
 
-  const [day, setDay] = useState(parseInt(localStorage.getItem("day") ?? new Date().getDay()));
+  const [day, setDay] = useState(parseInt(localStorage.getItem("day") ?? new Date().getDate()));
   const [month, setMonth] = useState(parseInt(localStorage.getItem("month") ?? new Date().getMonth()));
   const [year, setYear] = useState(parseInt(localStorage.getItem("year") ?? new Date().getFullYear()));
-  const currentDay = new Date().getDay();
+  const currentDay = new Date().getDate();
   const currentMonth = new Date().getMonth();
   const currentYear = new Date().getFullYear();
   const checkDateIsCurrent = currentDay === day && currentMonth === month && currentYear === year;
+  const localStorageHandler = new LocalStorageHandler();
 
   function deleteTodayStats() {
     setTodaySets(0);
@@ -62,32 +64,6 @@ export function StatsArea(props) {
     });
   }
 
-  function saveTodayStats() {
-    localStorage.setItem("todaySets", todaySets);
-    localStorage.setItem("todayCharsTyped", todayCharsTyped);
-    localStorage.setItem("todayClicks", todayClicks);
-    localStorage.setItem("todayTime", todayTime);
-    localStorage.setItem("todayWrongChars", todayWrongChars);
-  }
-
-  function saveTotalStats() {
-    localStorage.setItem("totalSets", totalSets);
-    localStorage.setItem("totalCharsTyped", totalCharsTyped);
-    localStorage.setItem("totalClicks", totalClicks);
-    localStorage.setItem("totalTime", totalTime);
-    localStorage.setItem("totalWrongChars", totalWrongChars);
-    localStorage.setItem("letters", JSON.stringify(props.letters));
-  }
-
-  function setAndSaveDate() {
-    setDay(new Date().getDay());
-    setMonth(new Date().getMonth());
-    setYear(new Date().getFullYear());
-    localStorage.setItem("day", day);
-    localStorage.setItem("month", month);
-    localStorage.setItem("year", year);
-  }
-
   useEffect(() => setLastSetTime(props.endTime - props.startTime), [props.endTime]);
   useEffect(() => {
     setLastSetClicksPerMinute(Math.round(props.clicks / ((lastSetTime ? lastSetTime / 1000 : 1) / 60)));
@@ -106,12 +82,19 @@ export function StatsArea(props) {
   useEffect(() => {
     setTodayClicksPerMinute(Math.round(todayClicks / ((todayTime ? todayTime / 1000 : 1) / 60)));
     setTodayMistakeRatio(Math.round((todayWrongChars / (todayCharsTyped ? todayCharsTyped : 1)) * 100));
-    saveTodayStats();
+    localStorageHandler.saveTodayStats(todaySets, todayCharsTyped, todayClicks, todayTime, todayWrongChars);
   }, [todayTime]);
   useEffect(() => {
     setTotalClicksPerMinute(Math.round(totalClicks / ((totalTime ? totalTime / 1000 : 1) / 60)));
     setTotalMistakeRatio(Math.round((totalWrongChars / (totalCharsTyped ? totalCharsTyped : 1)) * 100));
-    saveTotalStats();
+    localStorageHandler.saveTotalStats(
+      totalSets,
+      totalCharsTyped,
+      totalClicks,
+      totalTime,
+      totalWrongChars,
+      props.letters
+    );
   }, [totalTime]);
   useEffect(() => {
     props.setSets(0);
@@ -120,15 +103,24 @@ export function StatsArea(props) {
     props.setCharsTyped(0);
   }, [lastSetClicksPerMinute]);
   useEffect(() => {
+    if (localStorage.getItem("day") === null) {
+      setDay(new Date().getDate());
+      setMonth(new Date().getMonth());
+      setYear(new Date().getFullYear());
+      localStorageHandler.saveDate(day, month, year);
+    }
     if (!checkDateIsCurrent) {
       deleteTodayStats();
-      setAndSaveDate();
+      setDay(new Date().getDate());
+      setMonth(new Date().getMonth());
+      setYear(new Date().getFullYear());
+      localStorageHandler.saveDate(day, month, year);
     }
   }, []);
 
   return (
     <div className="stats-area">
-      <h1 className="stats-area__header">Stats</h1>
+      <h1 className="stats-area__eader">Stats</h1>
       <div className="stats-area__title">Last Set</div>
       <Stats text={"Time: " + Math.round(lastSetTime / 1000)} />
       <Stats text={"CPM:" + lastSetClicksPerMinute} />
